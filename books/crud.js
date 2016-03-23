@@ -44,13 +44,13 @@ module.exports = function (model, images) {
    * GET /books/add
    *
    * Display a form for creating a book.
-   */
-  router.get('/add', function addForm(req, res) {
-    res.render('books/form.jade', {
-      book: {},
-      action: 'Add'
-    });
-  });
+  //  */
+  // router.get('/add', function addForm(req, res) {
+  //   res.render('books/form.jade', {
+  //     book: {},
+  //     action: 'Add'
+  //   });
+  // });
 
   /**
    * POST /books/add
@@ -63,6 +63,7 @@ module.exports = function (model, images) {
     images.multer.single('image'),
     images.sendUploadToGCS,
     function insert(req, res, next) {
+      console.log(req);
       var data = req.body;
 
       // Was an image uploaded? If so, we'll use its public URL
@@ -74,7 +75,7 @@ module.exports = function (model, images) {
       // Save the data to the database.
       model.create(data, function (err, savedData) {
         if (err) { return next(err); }
-        res.redirect(req.baseUrl + '/' + savedData.id);
+        // res.redirect(req.baseUrl + '/' + savedData.id);
       });
     }
   );

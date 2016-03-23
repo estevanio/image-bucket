@@ -1,0 +1,16 @@
+<h3>Book</h3>
+<div class="btn-group">
+    <a href="/books/{{item.id}}/edit" class="btn btn-primary btn-sm">
+        <i class="glyphicon glyphicon-edit"></i>
+        <span> Edit book</span>
+    </a>
+    <a href="/books/{{item.id}}/delete" class="btn btn-danger btn-sm">
+        <i class="glyphicon glyphicon-trash"></i>
+        <span> Delete book</span>
+    </a>
+</div>
+<div class="media">
+    <h4>{{item.title}}</h4>
+    <h5>By {{item.author}}</h5>
+    <div><img ng-src="{{item.imageUrl}}" /></div>
+</div>

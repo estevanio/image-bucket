@@ -21,7 +21,7 @@ var app = express();
 
 app.disable('etag');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade'); // delete this?
+//app.set('view engine', 'jade'); // delete this?
 app.set('trust proxy', true);
 
 // Setup modules and dependencies
@@ -32,9 +32,14 @@ var model = require('./books/model')(config);
 app.use('/books', require('./books/crud')(model, images));
 app.use('/api/books', require('./books/api')(model));
 
-// Redirect root to /books
+
+app.use("/js", express.static(__dirname + '/frontend/js'));
+app.use("/partials", express.static(__dirname + '/frontend/partials'));
+
+
 app.get('/', function (req, res) {
-  res.redirect('/books');
+  res.sendFile(path.join(__dirname + '/frontend/index.html'));
+  // res.redirect('/books');
 });
 
 // Basic 404 handler

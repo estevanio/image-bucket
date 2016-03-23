@@ -14,8 +14,8 @@
 'use strict';
 
 var models = {
-  cloudsql: require('./model-cloudsql'),
-  datastore: require('./model-datastore'),
+  // cloudsql: require('./model-cloudsql'),
+  // datastore: require('./model-datastore'),
   mongodb: require('./model-mongodb')
 };
 

@@ -1,0 +1,21 @@
+<h3>Books</h3>
+<a ui-sref="form" class="btn btn-success btn-sm">
+<span> Add book</span>
+<i class="glyphicon glyphicon-plus"></i>
+</a>
+<div class="media" ng-repeat="book in books">
+
+    <a ui-sref="item({ id: book.id })">
+            <h4>{{book.title}}</h4>
+            <p>{{book.author}}</p>
+        <img class="img-circle" width="100" height="100" ng-src="{{book.imageUrl}}" />
+    </a>
+    <p ng-if="!books">No books found.</p>
+    <!--  
+   <nav>
+        <ul class="pager">
+            <li><a href="?pageToken=true">More</a></li>
+        </ul>
+    </nav> 
+    -->
+</div>
