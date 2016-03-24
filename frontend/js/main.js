@@ -25,15 +25,15 @@ angular.module('app', ['ui.router'])
     $urlRouterProvider.otherwise('/list');
     $stateProvider
         .state('list', {
-        url: "/list",
-        views: {
-            'mainContent': {
-                templateUrl: "partials/list.html",
-                controller: "ListCtrl"
-            }
-        },
+            url: "/list",
+            views: {
+                'mainContent': {
+                    templateUrl: "partials/list.html",
+                    controller: "ListCtrl"
+                }
+            },
 
-    })
+        })
 
     .state('item', {
             url: "/item/:id",
@@ -74,7 +74,7 @@ angular.module('app', ['ui.router'])
 }])
 
 .controller('ItemCtrl', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
-    var url = '/api/books/'+$stateParams.id;
+    var url = '/api/books/' + $stateParams.id;
     $http({
         method: 'GET',
         url: url
@@ -87,45 +87,40 @@ angular.module('app', ['ui.router'])
 
 }])
 
-.directive('FileInput', ['$parse', function ($parse) {
+.directive('fileInput', ['$parse', function($parse) {
     return {
         restrict: 'A',
-        link: function (scope, elm, attr) {
-            elm.bind('change', function () {
-                $parse()
-            })
+        link: function(scope, elm, attr) {
+            elm.bind('change', function() {
+                $parse(attr.fileInput)
+                .assign(scope, elm[0].files);
+                scope.$apply();
+            });
         }
     };
 }])
 
 .controller('FormCtrl', ['$scope', '$http', function($scope, $http) {
-    $scope.book={};
-    var url="/api/books/";
-    $scope.upload=function () {
-        console.log($scope.book);
-        var data=$scope.book;
-        $http.post(url, data, { 'headers':{'Content-Type' : 'multipart/form-data'}}) 
-        .success(function (d) {console.log(d);});     
+    var url = "/api/books/";
+    $scope.filesChanged = function(elm) {
+        $scope.files = elm.files;
+        $scope.apply();
+    };
+    $scope.upload = function() {
+        var fd = new FormData();
+        angular.forEach($scope.files, function(file) {
+            // console.log(file);
+            fd.append('file', file);
+            // console.log(fd['file']);
+        });
+        console.log(fd);
+
+        // var data=$scope.book;
+
+        $http.post(url, fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': 'mutipart/form-data' }
+            })
+            .success(function(d) { console.log(d); });
     };
 }]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

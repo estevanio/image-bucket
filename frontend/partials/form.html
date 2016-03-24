@@ -1,8 +1,7 @@
 <h3> book</h3>
-<form enctype="multipart/form-data">
+<form>
  <pre>{{book}}</pre>
-  <div class="form-group">
-    <label for="title">Title</label>
+<!--     <label for="title">Title</label>
     <input type="text" name="title" id="title" ng-model="book.title" class="form-control"/>
   </div>
   <div class="form-group">
@@ -17,18 +16,22 @@
     <label for="description">Description</label>
     <input type="text" name="description" id="description" ng-model="book.description" class="form-control"/>
   </div>
-  <div class="form-group">
+ -->  <div class="form-group">
     <label for="image">Cover Image</label>
-    <input onchange="angular.element(this).scope().filesChanged(this)"
-    type="file" name="image" id="image" class="form-control"/>
+    <input 
+      type="file" 
+      file-input="files" 
+      multiple
+      />
   </div>
-  <div class="form-group hidden">
+<!--   <div class="form-group hidden">
     <label for="imageUrl">Cover Image URL</label>
     <input type="text" name="imageUrl" id="imageUrl" ng-model="book.imageUrl" class="form-control"/>
   </div>
-<li ng-repeat="file in files"></li>
-   
+    -->
 
 
   <button ng-click="upload()" class="btn">Upload</button>
 </form>
+
+<li ng-repeat="file in files"></li>
